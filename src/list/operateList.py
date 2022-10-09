@@ -17,7 +17,7 @@ class OperateList(object):
     def __init__(self) -> None:
         self.logger = Logger("Operate List").getlogger(leavel=logging.DEBUG)\
 
-    def createList(self, length):
+    def createList(self, length) -> ListNode:
         """
         create list
         """
@@ -27,7 +27,7 @@ class OperateList(object):
         self.logger.info("Create list success !!!")
         return listnode
 
-    def printList(self, head) -> List:
+    def printList(self, head):
         """
         Print list
         """
@@ -87,7 +87,7 @@ class OperateList(object):
                 copy_haedB = copy_haedB.next
         return copy_haedA
 
-    def merge_2_list(self, headA: ListNode, headB: ListNode):
+    def merge_2_list(self, headA: ListNode, headB: ListNode) -> ListNode:
         """
         merge two ascending list
         """
@@ -117,8 +117,8 @@ class OperateList(object):
         # else:
         #     headA.next = self.merge_2_list(headA.next, headB)
         #     return headA
-        
-    def partition_list(self, head: ListNode, x: int):
+
+    def partition_list(self, head: ListNode, x: int) -> ListNode:
         """
         partition list,less then x in front
         """
@@ -139,3 +139,17 @@ class OperateList(object):
         tmp_headB.next = None
         tmp_headA.next = headB
         return headA
+
+    def cycle_list(self, head:ListNode) -> ListNode:
+        """
+        find the entry to cycle list 
+        """
+        fast, slow = head, head
+        while fast != None and fast.next != None:
+            fast, slow = fast.next.next, slow.next
+            if fast == slow:
+                fast = head
+                while fast != slow:
+                    fast, slow = fast.next, slow.next
+                return fast
+        return None
